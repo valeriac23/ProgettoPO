@@ -7,11 +7,9 @@ public class Filter extends Periodicità{
     private double fells_like;
     private double temp_day;
 
+    public Filter(String giorno, String settimna,String fascia, double temp_max,double temp_min, double temp_day,double fells_like) {
 
-
-    public Filter(String giorno, String settimna, double temp_max,double temp_min, double temp_day,double fells_like) {
-
-        super(giorno,settimna);
+        super(giorno,settimna,fascia);
         this.temp_max=temp_max;
         this.temp_min=temp_min;
         this.fells_like=fells_like;

@@ -10,9 +10,10 @@ public class Periodicità {
 
 
 
-    public Periodicità(String giorno, String settimana) {
+    public Periodicità(String giorno, String settimana,String fascia) {
         this.giorno=giorno;
         this.settimana=settimana;
+        this.fascia=fascia;
     }
 
 

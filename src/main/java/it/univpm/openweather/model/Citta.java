@@ -17,6 +17,7 @@ public class Citta {
 
     }
 
+
     /* Metodo che restituisce il nome della città
        */
     public String getNome() {
