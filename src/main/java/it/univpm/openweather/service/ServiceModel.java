@@ -1,12 +1,14 @@
 package it.univpm.openweather.service;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.parser.JSONParser;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import org.springframework.stereotype.Service;
+
 
 @Service
 public class ServiceModel {
@@ -30,47 +32,50 @@ public class ServiceModel {
     }
 
 
-    public org.json.simple.JSONArray getInfo(String city) {
-        JSONObject jo =  getCity(city);
-        JSONArray ja = new org.json.simple.JSONArray();
+    public JSONArray getInfo throws JSONException {
+
+
+    }
+        /*JSONObject jo =  getCity(city);
+        JSONArray ja = new org.json.JSONArray();
         JSONParser jsonParser= new JSONParser();
         JSONArray list = (JSONArray) jo.get("list");
         //JSONObject main = (JSONObject) list.get("main");
         double temp,temp_min,temp_max,feels_like,temp_kf;
         JSONObject o = null;
-       try{
+        try{
 
 
-               JSONObject obj = new JSONObject();
+            JSONObject obj = new JSONObject();
 
-               temp = (double) o.get("temp");
-               System.out.println(temp);
-               obj.put("Tempo",temp);
-               temp_max = (double) o.get("tem_max");
-               System.out.println(temp_max);
-               obj.put("Temperatura massima", temp_max);
-               temp_min = (double) o.get("temp_min");
-               System.out.println(temp);
-               obj.put("Temperatura minima",temp_min);
-               feels_like = (double) o.get("feels_like");
-               System.out.println(feels_like);
-               obj.put("Temperatura percepita",feels_like);
-               temp_kf = (double) o.get("temp_kf");
-               System.out.println(temp_kf);
-               obj.put("Temperatura kf",temp_kf);
+            temp = (double) o.get("temp");
+            System.out.println(temp);
+            obj.put("Tempo",temp);
+            temp_max = (double) o.get("tem_max");
+            System.out.println(temp_max);
+            obj.put("Temperatura massima", temp_max);
+            temp_min = (double) o.get("temp_min");
+            System.out.println(temp);
+            obj.put("Temperatura minima",temp_min);
+            feels_like = (double) o.get("feels_like");
+            System.out.println(feels_like);
+            obj.put("Temperatura percepita",feels_like);
+            temp_kf = (double) o.get("temp_kf");
+            System.out.println(temp_kf);
+            obj.put("Temperatura kf",temp_kf);
 
-               ja.add(obj);
+            ja.add(obj);
 
 
-       }catch (Exception e){
-           System.out.println("Errore");
-       }
+        }catch (Exception e){
+            System.out.println("Errore");
+        }
 
 
 
         return ja;
     }
-
+*/
 
     public String salvataggioFile(String city) {
         return null;
@@ -81,4 +86,3 @@ public class ServiceModel {
     public String salvataggioOra(String city) {
         return null;
     }
-}

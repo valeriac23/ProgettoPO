@@ -1,7 +1,8 @@
 package it.univpm.openweather.service;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import it.univpm.openweather.model.Citta;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public interface Service {
 
@@ -9,5 +10,6 @@ public interface Service {
     public abstract JSONArray getInfo(String city);
     public abstract String salvataggioFile(String city);
     public abstract String salvataggioOra(String city);
+    public abstract Citta getWind(String Città);
 
 }

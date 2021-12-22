@@ -2,15 +2,16 @@ package it.univpm.openweather.model;
 
 public class Forecast {
     private String main;
-    private int visibilità;
+    private int visibilita;
     private double temp_MAX;
     private double temp_MIN;
     private double feels_like;
+    private double varianza;
     private String dataora;
 
     public Forecast(){
         this.main = main;
-        this.visibilità= visibilità;
+        this.visibilita= visibilita;
         this.temp_MAX= temp_MAX;
         this.temp_MIN= temp_MIN;
         this.dataora = dataora;
@@ -24,12 +25,12 @@ public class Forecast {
         this.main = main;
     }
 
-    public int getVisibilità(){
-        return visibilità;
+    public int getVisibilita(){
+        return visibilita;
     }
 
-    public void setvisibilità(int visibilità){
-        this.visibilità = visibilità;
+    public void setvisibilita(int visibilita){
+        this.visibilita = visibilita;
     }
 
     public double getTemp_MAX() {
@@ -65,9 +66,17 @@ public class Forecast {
         this.dataora = dataora;
     }
 
+    public double getVarianza(){
+        return varianza;
+    }
+
+    public void setVarianza(){
+        this.varianza= varianza;
+    }
+
     @Override
     public String toString() {
-        return "data e ora=" + dataora + "main=" + main + ", visibilità=" + visibilità + ", temp_max="
+        return "data e ora=" + dataora + "main=" + main + ", visibilità=" + visibilita + ", temp_max="
                 + temp_MAX + ", temp_min=" + temp_MIN + ", feels_like=" + feels_like + "";
     }
 

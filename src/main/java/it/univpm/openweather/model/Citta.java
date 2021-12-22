@@ -4,16 +4,16 @@ import java.util.Vector;
 
 public class Citta {
     private String nome;
-    private long idcittà;
+    private long idcitta;
     private Vector<DatiVento> SpeedVento;
 
-    public Citta(String nome, long idcittà){
+    public Citta(String nome, long idcitta){
         this.nome = nome;
-        this.idcittà = idcittà;
+        this.idcitta = idcitta;
         this.SpeedVento = new Vector<DatiVento>();
     }
 
-    public Citta() {
+    public Citta(String citta) {
 
     }
 
@@ -36,16 +36,16 @@ public class Citta {
     /*
     metodo che restituisce l'id della città'
      */
-    public long getidcittà() {
+    public long getidcitta() {
 
-        return idcittà;
+        return idcitta;
     }
         /*Metodo che setta l'id della città
 
          */
-        public void setidcittà() {
+        public void setidcitta() {
 
-            this.idcittà = idcittà;
+            this.idcitta = idcitta;
         }
 
         public Vector<DatiVento> getVelVento () {
