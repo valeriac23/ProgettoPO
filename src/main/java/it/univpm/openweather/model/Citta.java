@@ -4,68 +4,79 @@ import java.util.Vector;
 
 public class Citta {
     private String nome;
-    private long idcitta;
-    private Vector<DatiVento> SpeedVento;
+    private long idcittà;
+    private String country;
+    private Vector<DatiVento> SpeedVento = new Vector<DatiVento>();
 
-    public Citta(String nome, long idcitta){
+    public Citta() {
+        super();
+    }
+
+    public Citta(String nome, long idcittà, String country) {
         this.nome = nome;
-        this.idcitta = idcitta;
+        this.idcittà = idcittà;
+        this.country = country;
         this.SpeedVento = new Vector<DatiVento>();
     }
 
-    public Citta(String citta) {
-
+    public Citta(String nome) {
+        this.nome = nome;
+        this.idcittà = 0;
+        this.country = null;
+        this.SpeedVento = null;
     }
 
 
     /* Metodo che restituisce il nome della città
-       */
+     */
     public String getNome() {
 
         return nome;
     }
 
     /* Metodo che setta il nome della città
-         */
-    public void setNome()
-    {
-
+     */
+    public void setNome() {
         this.nome = nome;
     }
 
     /*
     metodo che restituisce l'id della città'
      */
-    public long getidcitta() {
+    public long getidcittà() {
 
-        return idcitta;
+        return idcittà;
     }
-        /*Metodo che setta l'id della città
 
-         */
-        public void setidcitta() {
+    /*Metodo che setta l'id della città
 
-            this.idcitta = idcitta;
-        }
+     */
+    public void setidcittà() {
 
-        public Vector<DatiVento> getVelVento () {
-            return SpeedVento;
-        }
-
-        public void setVelVento () {
-            this.SpeedVento = SpeedVento;
-        }
+        this.idcittà = idcittà;
     }
-       /* public String toStringVector () {
-            String toReturn = "";
-            for (int i = 0; i < VelVento.size(); i++)
-                toReturn += VelVento.get(i).toString();
-            return toReturn;
-        }
 
-        @Override
-        public String toString () {
-            return "id=" + id + ", name=" + name + ", VelVentoArray=" + toStringVector() + "";
-        }
-*/
+    public Vector<DatiVento> getVelVento() {
+
+        return SpeedVento;
+    }
+
+    public void setVelVento(Vector<DatiVento> array) {
+        this.SpeedVento = SpeedVento;
+    }
+
+    public String toStringVector() {
+        String vettore = "";
+        for (int i = 0; i < SpeedVento.size(); i++)
+            vettore += SpeedVento.get(i).toString();
+        return vettore;
+    }
+
+    @Override
+    public String toString() {
+        return "id=" + idcittà + ", name=" + nome + ", VelVentoArray=" + toStringVector() + "";
+
+    }
+}
+
 

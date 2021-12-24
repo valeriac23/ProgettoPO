@@ -77,7 +77,7 @@ public class Forecast {
     @Override
     public String toString() {
         return "data e ora=" + dataora + "main=" + main + ", visibilità=" + visibilita + ", temp_max="
-                + temp_MAX + ", temp_min=" + temp_MIN + ", feels_like=" + feels_like + "";
+                + temp_MAX + ", temp_min=" + temp_MIN + ", feels_like=" + feels_like + ", varianza" + varianza;
     }
 
 }

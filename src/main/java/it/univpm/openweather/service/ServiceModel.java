@@ -1,11 +1,12 @@
 package it.univpm.openweather.service;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.parser.JSONParser;
+;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -16,66 +17,53 @@ public class ServiceModel {
 
     private static String api_key = "06d32b64e3cb4b1823645e35975b7053";
 
-    public JSONObject getCity(String city) {
-        JSONObject obj = new JSONObject();
-        String url = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid="+api_key;
-        try {
-            URI uri = new URI(url);
+    public JSONObject getCity(String city) throws JSONException {
+        JSONObject obj;
+        String url = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + api_key;
+       // try {
+            //URI uri = new URI(url);
             RestTemplate rt = new RestTemplate();
 
-            obj = rt.getForObject(uri, JSONObject.class);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+            obj = new JSONObject(rt.getForObject(url,String.class));
+        //} catch (URISyntaxException e) {
+           // e.printStackTrace();
+       // }
         return obj;
 
     }
 
 
-    public JSONArray getInfo throws JSONException {
+    public JSONArray getInfo(String city) throws JSONException {
+        JSONObject obCity = getCity(city);
+        JSONArray ja = new JSONArray();
+        JSONArray array = obCity.getJSONArray("list");
+        JSONObject counter = new JSONObject();
+        int visibility;
+        String date;
+
+        for(int i=0; i < array.length();i++){
+            JSONObject obj = new JSONObject();
+            obj = array.getJSONObject(i);
+            visibility =  obj.getInt("visibility");
+            obj.put("Visibilità",visibility);
+            date = obj.getString("dt_txt");
+            obj.put("Data",date);
+            ja.put(obj);
+
+
+        }
+
+        return ja;
 
 
     }
-        /*JSONObject jo =  getCity(city);
-        JSONArray ja = new org.json.JSONArray();
-        JSONParser jsonParser= new JSONParser();
-        JSONArray list = (JSONArray) jo.get("list");
-        //JSONObject main = (JSONObject) list.get("main");
-        double temp,temp_min,temp_max,feels_like,temp_kf;
-        JSONObject o = null;
-        try{
-
-
-            JSONObject obj = new JSONObject();
-
-            temp = (double) o.get("temp");
-            System.out.println(temp);
-            obj.put("Tempo",temp);
-            temp_max = (double) o.get("tem_max");
-            System.out.println(temp_max);
-            obj.put("Temperatura massima", temp_max);
-            temp_min = (double) o.get("temp_min");
-            System.out.println(temp);
-            obj.put("Temperatura minima",temp_min);
-            feels_like = (double) o.get("feels_like");
-            System.out.println(feels_like);
-            obj.put("Temperatura percepita",feels_like);
-            temp_kf = (double) o.get("temp_kf");
-            System.out.println(temp_kf);
-            obj.put("Temperatura kf",temp_kf);
-
-            ja.add(obj);
-
-
-        }catch (Exception e){
-            System.out.println("Errore");
-        }
-
-
+    public JSONArray getInfoMain(String city) throws JSONException {
+        JSONObject obj = getCity(city);
+        JSONArray ja = new JSONArray();
 
         return ja;
     }
-*/
+
 
     public String salvataggioFile(String city) {
         return null;
@@ -86,3 +74,7 @@ public class ServiceModel {
     public String salvataggioOra(String city) {
         return null;
     }
+}
+
+
+
