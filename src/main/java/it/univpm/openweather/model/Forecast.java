@@ -1,10 +1,16 @@
 package it.univpm.openweather.model;
 
+import it.univpm.openweather.Stats.TempStats;
+
+import java.util.Vector;
+
 public class Forecast {
+    private Vector<Double> wind = new Vector<Double>();
     private String main;
     private int visibilita;
     private double temp_MAX;
     private double temp_MIN;
+    private double temp_media;
     private double feels_like;
     private double varianza;
     private String dataora;
@@ -80,4 +86,58 @@ public class Forecast {
                 + temp_MAX + ", temp_min=" + temp_MIN + ", feels_like=" + feels_like + ", varianza" + varianza;
     }
 
+    public Vector<Double> getValoriVECTOR() {
+        return this.wind;
+    }
+
+      public void setValori(Double valore) {
+        /*try{
+            this.wind.add(valore);
+
+            Statistiche statistics = new Statistiche();
+            this.temp_MAX= Statistiche.Massimi(valore);
+            this.temp_MIN= Statistiche.Minimi(valore);
+            this.temp_media = Statistiche.Medium(valore);
+        } catch (Exception e) {
+
+        }*/
+            try {
+                this.wind.add(valore);
+
+                this.temp_MAX= TempStats.getValori_max(this.wind);
+
+                this.temp_MIN= TempStats.getValori_min(this.wind);
+
+                this.temp_media=TempStats.getValori_medium(this.wind);
+
+                this.varianza=TempStats.getValori_var(this.wind);
+
+            } /*catch(ArrayIndexOutOfBoundsException ArrayExc) {
+                System.out.println("Errore con indici del vettore");
+                System.out.println(ArrayExc);
+            } catch(Exception e) {
+                System.out.println("Errore generico");
+                System.out.println(e);
+            }
+    }*/
+
+
+    public double getValori_max() {
+        return temp_MAX;
+    }
+
+
+    public double getValori_min() {
+        return temp_MIN;
+    }
+
+
+    public double getValue_medium() {
+        return temp_media;
+    }
+
+
+    public double getValue_var() {
+        return varianza;
+    }
 }
