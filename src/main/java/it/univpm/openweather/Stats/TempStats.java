@@ -1,23 +1,23 @@
 package it.univpm.openweather.Stats;
 
 import java.util.Vector;
-import it.univpm.openweather.model.Valori;
 //import it.univpm.openweather.model.Forecast;
 //import com.ConfrontoSpeedVento.exceptions.dateException;
 //import com.ConfrontoSpeedVento.exceptions.vectorNullException;
 //import com.ConfrontoSpeedVento.exceptions.wrongDateException;
 
-public class TempStats implements Valori{
+public abstract class TempStats {
 
         private Vector<Double> wind = new Vector<Double>();
-        private double media;
+        private static double media;
         private static double ValoreMax;
         private static double ValoreMin;
         private static double ValoreMedio;
         private static double ValoreVar;
 
 
-        public static Double Massimi(Vector<Double> wind){
+
+    public static Double Massimi(Vector<Double> wind){
 
             Double max_SpeedVento = wind.get(0);
 
@@ -51,61 +51,33 @@ public class TempStats implements Valori{
             return media;
         }
 
-        public static double Variance(Vector<Double> wind){
+        public static double Variance(Vector<Double> wind) {
             double var = 0;
             double varianza;
-            for( double w : wind){
-                var += (w - media)*(w- media);
+            for (double w : wind) {
+                var += (w - media) * (w - media);
             }
-           varianza = var / (wind.size()-1);
+            varianza = var / (wind.size() - 1);
 
 
             return varianza;
         }
 
-
-    @Override
-    public void getValori(double valore) {
-
-    }
-
-    @Override
-        public void setValori(double valore) {
-
-        }
-
-    @Override
-    public double getValori_max() {
-        return 0;
-    }
-
-    @Override
-    public static double getValori_min(Vector<Double> wind) {
-        return 0;
-    }
-
-    @Override
-    public double getValori_medium() {
-        return 0;
-    }
-
-    @Override
-    public double getValori_var() {
-        return 0;
-    }
-
-
     public static double getValori_max(Vector<Double> wind) {
-            return ValoreMax;
-        }
-
-
-
-        public static double getValori_medium(Vector<Double> wind) {
-            return ValoreMedio;
-        }
-
-        public static double getValori_var(Vector<Double> wind) {return ValoreVar;  }
+        return ValoreMax;
     }
+
+    public static double getValori_min(Vector<Double> wind) {
+        return ValoreMin;
+    }
+
+    public static double getValori_medium(Vector<Double> wind) {
+        return ValoreMedio;
+    }
+
+    public static double getValori_var(Vector<Double> wind) {
+        return ValoreVar;
+    }
+
 
 }

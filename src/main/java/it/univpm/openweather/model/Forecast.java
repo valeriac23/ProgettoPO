@@ -4,7 +4,7 @@ import it.univpm.openweather.Stats.TempStats;
 
 import java.util.Vector;
 
-public class Forecast {
+public class Forecast implements Valori{
     private Vector<Double> wind = new Vector<Double>();
     private String main;
     private int visibilita;
@@ -101,30 +101,77 @@ public class Forecast {
         } catch (Exception e) {
 
         }*/
-            try {
-                this.wind.add(valore);
+          try {
+              this.wind.add(valore);
 
-                this.temp_MAX= TempStats.getValori_max(this.wind);
+              this.temp_MAX = TempStats.getValori_max(this.wind);
 
-                this.temp_MIN= TempStats.getValori_min(this.wind);
+              this.temp_MIN = TempStats.getValori_min(this.wind);
 
-                this.temp_media=TempStats.getValori_medium(this.wind);
+              this.temp_media = TempStats.getValori_medium(this.wind);
 
-                this.varianza=TempStats.getValori_var(this.wind);
+              this.varianza = TempStats.getValori_var(this.wind);
 
-            } /*catch(ArrayIndexOutOfBoundsException ArrayExc) {
+          } catch(ArrayIndexOutOfBoundsException ArrayExc) {
                 System.out.println("Errore con indici del vettore");
                 System.out.println(ArrayExc);
             } catch(Exception e) {
                 System.out.println("Errore generico");
                 System.out.println(e);
             }
-    }*/
+    }
 
+    @Override
+    public void getValori(double valore) {
 
+    }
+
+    @Override
+    public void setValori(double valore) {
+        try {
+            this.wind.add(valore);
+
+            this.temp_MAX = TempStats.getValori_max(this.wind);
+
+            this.temp_MIN = TempStats.getValori_min(this.wind);
+
+            this.temp_media = TempStats.getValori_medium(this.wind);
+
+            this.varianza = TempStats.getValori_var(this.wind);
+
+        } catch(ArrayIndexOutOfBoundsException ArrayExc) {
+            System.out.println("Errore con indici del vettore");
+            System.out.println(ArrayExc);
+        } catch(Exception e) {
+            System.out.println("Errore generico");
+            System.out.println(e);
+        }
+    }
+
+    @Override
     public double getValori_max() {
         return temp_MAX;
     }
+
+    @Override
+    public double getValori_min() {
+        return temp_MIN;
+    }
+
+    @Override
+    public double getValori_medium() {
+        return temp_media;
+    }
+
+    @Override
+    public double getValori_var() {
+        return varianza;
+    }
+
+       /*   public double getValori_max()
+          {
+                return temp_MAX;
+            }
 
 
     public double getValori_min() {
@@ -139,5 +186,6 @@ public class Forecast {
 
     public double getValue_var() {
         return varianza;
-    }
-}
+    }*/
+
+      }
