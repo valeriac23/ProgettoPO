@@ -1,4 +1,4 @@
-package it.univpm.openweather.model;
+package it.univpm.openweather.model.filter;
 
 public interface Valori {
         void getValori(double valore);

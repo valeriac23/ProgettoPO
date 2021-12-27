@@ -1,10 +1,8 @@
-package it.univpm.openweather.model;
-
-import it.univpm.openweather.Stats.TempStats;
+package it.univpm.openweather.model.filter;
 
 import java.util.Vector;
 
-public class Forecast implements Valori{
+public class Forecast implements Valori {
     private Vector<Double> wind = new Vector<Double>();
     private String main;
     private int visibilita;
@@ -83,24 +81,16 @@ public class Forecast implements Valori{
     @Override
     public String toString() {
         return "data e ora=" + dataora + "main=" + main + ", visibilità=" + visibilita + ", temp_max="
-                + temp_MAX + ", temp_min=" + temp_MIN + ", feels_like=" + feels_like + ", varianza" + varianza;
+                + temp_MAX + ", temp_min=" + temp_MIN + ", feels_like=" + feels_like + ", varianza=" + varianza;
     }
 
     public Vector<Double> getValoriVECTOR() {
+
         return this.wind;
     }
 
       public void setValori(Double valore) {
-        /*try{
-            this.wind.add(valore);
 
-            Statistiche statistics = new Statistiche();
-            this.temp_MAX= Statistiche.Massimi(valore);
-            this.temp_MIN= Statistiche.Minimi(valore);
-            this.temp_media = Statistiche.Medium(valore);
-        } catch (Exception e) {
-
-        }*/
           try {
               this.wind.add(valore);
 
@@ -168,24 +158,4 @@ public class Forecast implements Valori{
         return varianza;
     }
 
-       /*   public double getValori_max()
-          {
-                return temp_MAX;
-            }
-
-
-    public double getValori_min() {
-        return temp_MIN;
-    }
-
-
-    public double getValue_medium() {
-        return temp_media;
-    }
-
-
-    public double getValue_var() {
-        return varianza;
-    }*/
-
-      }
+}

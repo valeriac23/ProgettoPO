@@ -1,7 +1,6 @@
-package it.univpm.openweather.Stats;
+package it.univpm.openweather.model.filter;
 
 import java.util.Vector;
-//import it.univpm.openweather.model.Forecast;
 //import com.ConfrontoSpeedVento.exceptions.dateException;
 //import com.ConfrontoSpeedVento.exceptions.vectorNullException;
 //import com.ConfrontoSpeedVento.exceptions.wrongDateException;

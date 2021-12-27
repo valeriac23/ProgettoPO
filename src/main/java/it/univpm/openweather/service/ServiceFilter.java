@@ -1,9 +1,7 @@
 package it.univpm.openweather.service;
 
 import it.univpm.openweather.model.Citta;
-import it.univpm.openweather.model.Forecast;
-import it.univpm.openweather.service.ServiceFilter;
-import it.univpm.openweather.model.DatiVento;
+import it.univpm.openweather.model.filter.Forecast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +20,7 @@ public class ServiceFilter{
 
     public JSONObject getCity(String city) {
         JSONObject obj = new JSONObject();
-        String url = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid="+api_key;
+        String url = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + api_key;
         try {
             URI uri = new URI(url);
             RestTemplate rt = new RestTemplate();
@@ -32,9 +30,8 @@ public class ServiceFilter{
             e.printStackTrace();
         }
         return obj;
+    }
 
-
-}
     public JSONObject getCityWeather(String city) throws JSONException {
 
         JSONObject obj;
@@ -49,37 +46,37 @@ public class ServiceFilter{
     }
 
     @Override
-    public JSONObject getTempInfo(String Citta)
+    public JSONObject getMainInfo(String Citta)
     {
-        JSONObject temperatura = new JSONObject();
+        JSONObject main = new JSONObject();
 
         String url = url + Citta + "&appid=" +  api_key;
 
         RestTemplate rt = new RestTemplate();
 
         try {
-            temperatura = new JSONObject(rt.getForObject(url, String.class));
+            main = new JSONObject(rt.getForObject(url, String.class));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return temperatura;
+        return main;
     }
 
       public Citta getWind(String Citta) throws JSONException {
 
-        JSONObject obj = getTempInfo(Citta);
+        JSONObject obj = getMainInfo(String Citta);
         JSONObject main = obj.getJSONObject("main");
 
         Citta city = new Citta(String Citta);
-        city = getTempInfo(String nome);
+        city = getMainInfo(String Citta);
 
         Forecast temp = new Forecast();
 
         Vector<Forecast> vector = new Vector<Forecast>(main.length());
         vector.add(temp);
 
-        city.setMain(vector);
+        city.setMainInfo(vector);
 
         return city;
     }
