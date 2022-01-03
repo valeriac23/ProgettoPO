@@ -5,7 +5,7 @@ import java.util.Vector;
 //import com.ConfrontoSpeedVento.exceptions.vectorNullException;
 //import com.ConfrontoSpeedVento.exceptions.wrongDateException;
 
-public abstract class TempStats {
+public class TempStats {
 
         private Vector<Double> wind = new Vector<Double>();
         private static double media;
