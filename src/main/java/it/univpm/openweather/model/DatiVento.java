@@ -3,7 +3,7 @@ package it.univpm.openweather.model;
 import java.util.Vector;
 
 public class DatiVento extends Citta{
-        public Vector<DatiVento> SpeedVento;
+        public double SpeedVento;
         public String dataora;
 
         public DatiVento(){
@@ -19,11 +19,11 @@ public class DatiVento extends Citta{
         public void setDataora(){
                 this.dataora= dataora;
         }
-        public Vector<DatiVento> getVelVento() {
-                return SpeedVento;
+        public double getVelVento(double SpeedVento) {
+                return this.SpeedVento = SpeedVento;
         }
 
-        public void setVelVento() {
-                this.SpeedVento = SpeedVento;
+        public double setVelVento(double SpeedVento) {
+                return this.SpeedVento = SpeedVento;
         }
 }

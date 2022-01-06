@@ -6,6 +6,7 @@ public class Forecast implements Valori {
     private Vector<Double> wind = new Vector<Double>();
     private String main;
     private int visibilita;
+    private double temp;
     private double temp_MAX;
     private double temp_MIN;
     private double temp_media;
@@ -158,4 +159,12 @@ public class Forecast implements Valori {
         return varianza;
     }
 
+    public double setTemp(double temp) {
+        return temp;
+
+    }
+
+    public double getTemp() {
+        return temp;
+    }
 }

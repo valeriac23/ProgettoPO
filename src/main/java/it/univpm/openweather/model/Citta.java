@@ -1,5 +1,7 @@
 package it.univpm.openweather.model;
 
+import it.univpm.openweather.model.filter.Forecast;
+
 import java.util.Vector;
 
 public class Citta {
@@ -28,7 +30,7 @@ public class Citta {
 
     /* Metodo che setta il nome della città
          */
-    public void setNome()
+    public void setNome(String name)
     {
 
         this.nome = nome;
@@ -44,7 +46,7 @@ public class Citta {
         /*Metodo che setta l'id della città
 
          */
-        public void setidcitta() {
+        public void setidcitta(double id) {
 
             this.idcitta = idcitta;
         }
@@ -53,10 +55,13 @@ public class Citta {
             return SpeedVento;
         }
 
-        public void setVelVento () {
+        public void setVelVento(Vector<DatiVento> vector) {
             this.SpeedVento = SpeedVento;
         }
+
+    public void setForecast(Vector<Forecast> vector1) {
     }
+}
        /* public String toStringVector () {
             String toReturn = "";
             for (int i = 0; i < VelVento.size(); i++)
