@@ -1,9 +1,7 @@
 package it.univpm.openweather.model.filter;
 
 import java.util.Vector;
-//import com.ConfrontoSpeedVento.exceptions.dateException;
-//import com.ConfrontoSpeedVento.exceptions.vectorNullException;
-//import com.ConfrontoSpeedVento.exceptions.wrongDateException;
+
 
 public class TempStats {
 
