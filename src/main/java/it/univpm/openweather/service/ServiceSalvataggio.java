@@ -1,8 +1,14 @@
 package it.univpm.openweather.service;
 
-import it.univpm.openweather.model.Citta;
-import it.univpm.openweather.model.DatiVento;
-import it.univpm.openweather.model.filter.Forecast;
+import it.univpm.openweather.model.*;
+import it.univpm.openweather.model.filter.*;
+
+import java.time.*;
+import java.util.*;
+import java.net.*;
+import java.io.*;
+import java.lang.*;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,38 +16,32 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.time.LocalDate;
-import java.util.Currency;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Vector;
 
 @Service
-public class ServiceFilterStats {
+public class ServiceSalvataggio {
     private static String api_key = "06d32b64e3cb4b1823645e35975b7053";
     private Object nome;
 
 
-    public JSONObject getCity(String city) {
-        JSONObject obj = new JSONObject();
-        String url = "api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + api_key;
-        try {
-            URI uri = new URI(url);
-            RestTemplate rt = new RestTemplate();
+    public JSONObject getCity(String city) throws URISyntaxException, JSONException {
+        JSONObject obj;
+        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + api_key;
+        /*try {
+            URI uri = new URI(url);*/
 
-            obj = rt.getForObject(uri, JSONObject.class);
-        } catch (URISyntaxException e) {
+        RestTemplate rt = new RestTemplate();
+
+        obj = new JSONObject(rt.getForObject(url,String.class));
+        /*} catch (URISyntaxException e) {
             e.printStackTrace();
-        }
+        }*/
         return obj;
     }
 
-    public Citta getCityInfo(String cityName) throws JSONException {
+    public Citta getCityInfo(String cityName) throws JSONException, URISyntaxException {
 
         JSONObject objCity = getCity(cityName);
+
 
         Citta city = new Citta();
         DatiVento datiVento = new DatiVento();
@@ -72,13 +72,16 @@ public class ServiceFilterStats {
 
         String name;
         name = objCity.getString("name");
-        double id;
-        id = objCity.getDouble("id");
+        long id;
+        id = objCity.getLong("id");
+
+
         city.setNome(name);
         city.setidcitta(id);
 
         Vector<DatiVento> vector = new Vector<DatiVento>(getWind.length());
         vector.add(datiVento);
+
         city.setVelVento(vector);
 
         Vector<Forecast> vector1 = new Vector<>(getMain.length());
@@ -95,6 +98,7 @@ public class ServiceFilterStats {
         JSONObject listobj = new JSONObject();
         listobj.put("name", city.getNome());
         listobj.put("idcittà", city.getidcitta());
+
         for (int i = 0; i < city.getVelVento().size(); i++) {
             listobj.put("data", (city.getVelVento()).get(i).getDataora());
             listobj.put("velocità", (city.getVelVento()).get(i).getVelVento());
@@ -111,13 +115,13 @@ public class ServiceFilterStats {
         Mainlist.put("feels_like", (fct.getFeels_like()));
         MainArr.put(Mainlist);
         Mainlist.put("Main", MainArr);
-        //assertEquals(listobj.toString(), Mainlist.toString());  //?????
+
         return Mainlist;
 
     }
 
 
-    public String salvataggio(String cityName) throws JSONException {
+    public String salvataggio(String cityName) throws JSONException, URISyntaxException {
 
         Citta city = getCityInfo(cityName);
 
@@ -125,12 +129,12 @@ public class ServiceFilterStats {
 
         LocalDate today = LocalDate.now();
 
-        String nomeFile = cityName+"/"+today;
+        String nomeFile = cityName+"-"+today;
 
-        String rotta = System.getProperty("user.dir")+nomeFile+".txt";
+        String rotta = System.getProperty("user.dir")+"\\" + nomeFile+".txt";
 
         try{
-            PrintWriter output = new PrintWriter(new BufferedOutputStream(new FileOutputStream(rotta)));
+            PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(rotta)));
 
             output.println(objCity.toString());
             output.close();
@@ -138,6 +142,8 @@ public class ServiceFilterStats {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
 
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return rotta;
@@ -158,6 +164,8 @@ public class ServiceFilterStats {
                     JSONObject objCity = toJSON(city);
 
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
                     e.printStackTrace();
                 }
                 try{

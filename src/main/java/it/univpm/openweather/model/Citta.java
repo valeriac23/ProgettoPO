@@ -33,7 +33,7 @@ public class Citta {
     public void setNome(String name)
     {
 
-        this.nome = nome;
+        this.nome = name;
     }
 
     /*
@@ -46,9 +46,9 @@ public class Citta {
         /*Metodo che setta l'id della città
 
          */
-        public void setidcitta(double id) {
+        public void setidcitta(long id) {
 
-            this.idcitta = idcitta;
+            this.idcitta = id;
         }
 
         public Vector<DatiVento> getVelVento () {
@@ -56,22 +56,11 @@ public class Citta {
         }
 
         public void setVelVento(Vector<DatiVento> vector) {
-            this.SpeedVento = SpeedVento;
+            this.SpeedVento = vector;
         }
 
     public void setForecast(Vector<Forecast> vector1) {
+
     }
 }
-       /* public String toStringVector () {
-            String toReturn = "";
-            for (int i = 0; i < VelVento.size(); i++)
-                toReturn += VelVento.get(i).toString();
-            return toReturn;
-        }
-
-        @Override
-        public String toString () {
-            return "id=" + id + ", name=" + name + ", VelVentoArray=" + toStringVector() + "";
-        }
-*/
 

@@ -1,8 +1,14 @@
 package it.univpm.openweather.controller;
 
-import it.univpm.openweather.service.ServiceAppImpl;
-import it.univpm.openweather.service.ServiceFilterStats;
+
+import it.univpm.openweather.service.ServiceSalvataggio;
+
+import it.univpm.openweather.service.ServiceSpeed;
 import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONArray;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,32 +17,39 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 public class Controller {
 
     @Autowired
-    ServiceAppImpl service;
+    ServiceSpeed service;
 
     @GetMapping(value = "/speed/")
-    public ResponseEntity<Object> getVisibility(@RequestParam String cityName) throws JSONException {
+    public ResponseEntity<Object> getVisibility(@RequestParam String cityName) throws JSONException, URISyntaxException {
         ResponseEntity<Object> objectResponseEntity;
-        objectResponseEntity = new ResponseEntity<>(service.getForecast(cityName).toString(), HttpStatus.OK);
-        return objectResponseEntity;
+        JSONObject obj = service.getForecast(cityName);
+
+        return new ResponseEntity<>(obj.toString(), HttpStatus.OK);
+
     }
     @Autowired
-    ServiceFilterStats service1;
+    ServiceSalvataggio service1;
     @GetMapping(value="/save")
-    public String save(@RequestParam String cityName) throws IOException, JSONException {
+    public String save(@RequestParam String cityName) throws IOException, JSONException, URISyntaxException {
         String file = service1.salvataggio(cityName);
 
         return "E' stato salvato il file: " + file;
 
     }
     @GetMapping(value = "/savehour")
-    public String saveEveryHour(@RequestParam String cityName) throws IOException,JSONException{
+    public String saveEveryHour(@RequestParam String cityName) throws IOException, JSONException, URISyntaxException {
         service1.salvataggio(cityName);
         return "Il file si sta aggiornando...";
     }
+
 
 }
