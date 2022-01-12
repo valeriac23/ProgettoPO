@@ -1,6 +1,7 @@
 package it.univpm.openweather.controller;
 
 
+import it.univpm.openweather.model.Citta;
 import it.univpm.openweather.service.ServiceSalvataggio;
 
 import it.univpm.openweather.service.ServiceSpeed;
@@ -47,8 +48,17 @@ public class Controller {
     }
     @GetMapping(value = "/savehour")
     public String saveEveryHour(@RequestParam String cityName) throws IOException, JSONException, URISyntaxException {
-        service1.salvataggio(cityName);
-        return "Il file si sta aggiornando...";
+        String string = service1.salvataggio(cityName);
+        return "Il file si sta aggiornando..." + string;
+    }
+    @GetMapping(value = "/test")
+    public ResponseEntity<Object> get(@RequestParam String cityName) throws JSONException, URISyntaxException {
+        //Citta city = service1.getCityInfo(cityName);
+        JSONObject obj = service1.getCurrent(cityName);
+
+        System.out.println(obj.toString());
+
+        return new ResponseEntity<>(obj.toString(), HttpStatus.OK);
     }
 
 

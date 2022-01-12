@@ -6,61 +6,69 @@ import java.util.Vector;
 
 public class Citta {
     private String nome;
-    private long idcitta;
-    private Vector<DatiVento> SpeedVento;
+    private long id;
+    private Vector<DatiVento> speedVento;
+    private Vector<Forecast> forecasts;
 
-    public Citta(String nome, long idcitta){
+    public Citta(String nome, long id) {
         this.nome = nome;
-        this.idcitta = idcitta;
-        this.SpeedVento = new Vector<DatiVento>();
+        this.id = id;
+
     }
 
+    public Citta(String nome){
+        this.nome=nome;
+        this.id= 0;
+    }
 
-    public Citta() {
+    public Citta(){
         super();
     }
 
 
-    /* Metodo che restituisce il nome della città
-       */
     public String getNome() {
 
         return nome;
     }
 
-    /* Metodo che setta il nome della città
-         */
+
     public void setNome(String name)
     {
 
         this.nome = name;
     }
 
-    /*
-    metodo che restituisce l'id della città'
-     */
+
     public long getidcitta() {
 
-        return idcitta;
+        return id;
     }
-        /*Metodo che setta l'id della città
 
-         */
-        public void setidcitta(long id) {
+    public void setId(long id) {
+        this.id = id;
+    }
 
-            this.idcitta = id;
-        }
+    public Vector<DatiVento> getVelVento () {
+        return speedVento;
+    }
+    public void setVelVento(Vector<DatiVento> speedVento) {
 
-        public Vector<DatiVento> getVelVento () {
-            return SpeedVento;
-        }
+        this.speedVento = speedVento;
+    }
 
-        public void setVelVento(Vector<DatiVento> vector) {
-            this.SpeedVento = vector;
-        }
+    public Vector<Forecast> getForecasts() {
+        return forecasts;
+    }
 
-    public void setForecast(Vector<Forecast> vector1) {
+    public void setForecast(Vector<Forecast> forecasts) {
+            this.forecasts = forecasts;
 
+    }
+
+    @Override
+    public String toString() {
+        return "Citta{"+ "nome='" + nome + '\'' + ", id=" + id
+                + ", speedVento=" + speedVento + ", forecasts=" + forecasts + '}';
     }
 }
 

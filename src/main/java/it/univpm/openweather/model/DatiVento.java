@@ -16,9 +16,11 @@ public class DatiVento extends Citta{
         public String getDataora(){
                 return dataora;
         }
+
         public void setDataora(){
                 this.dataora= dataora;
         }
+
         public double getVelVento(double SpeedVento) {
                 return this.SpeedVento = SpeedVento;
         }

@@ -13,14 +13,14 @@ import org.springframework.web.client.RestTemplate;
 public class ServiceSpeed{
 
     private static String api_key = "06d32b64e3cb4b1823645e35975b7053";
-    private String city;
+    private String cityName;
 
 
 
-    public JSONObject getCity(String city) throws JSONException,URISyntaxException {
-        this.city = city;
+    public JSONObject getCity(String cityName) throws JSONException,URISyntaxException {
+        this.cityName = cityName;
         JSONObject obj;
-        String url = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + api_key;
+        String url = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + api_key;
 
         RestTemplate rt = new RestTemplate();
         //URI uri = new URI(url);
@@ -34,8 +34,8 @@ public class ServiceSpeed{
     }
 
 
-    public JSONObject getForecast(String city) throws JSONException, URISyntaxException {
-        JSONObject objCity = getCity(city);
+    public JSONObject getForecast(String cityName) throws JSONException, URISyntaxException {
+        JSONObject objCity = getCity(cityName);
         JSONObject objReturn = new JSONObject();
         JSONArray arrayReturn = new JSONArray();
         JSONObject obj = new JSONObject();

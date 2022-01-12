@@ -2,40 +2,33 @@ package it.univpm.openweather.model.filter;
 
 import java.util.Vector;
 
-public class Forecast implements Valori {
+public class Forecast /*implements Valori*/ {
     private Vector<Double> wind = new Vector<Double>();
-    private String main;
-    private int visibilita;
+
+
     private double temp;
     private double temp_MAX;
     private double temp_MIN;
-    private double temp_media;
+
     private double feels_like;
-    private double varianza;
+
     private String dataora;
 
     public Forecast(){
-        this.main = main;
-        this.visibilita= visibilita;
+
+        this.temp = temp;
         this.temp_MAX= temp_MAX;
         this.temp_MIN= temp_MIN;
+        this.feels_like = feels_like;
         this.dataora = dataora;
     }
 
-    public String getMain(){
-        return main;
+    public double getTemp() {
+        return temp;
     }
 
-    public void setMain(String main){
-        this.main = main;
-    }
-
-    public int getVisibilita(){
-        return visibilita;
-    }
-
-    public void setvisibilita(int visibilita){
-        this.visibilita = visibilita;
+    public void setTemp(double temp) {
+        this.temp = temp;
     }
 
     public double getTemp_MAX() {
@@ -71,21 +64,14 @@ public class Forecast implements Valori {
         this.dataora = dataora;
     }
 
-    public double getVarianza(){
-        return varianza;
-    }
-
-    public void setVarianza(){
-        this.varianza= varianza;
-    }
 
     @Override
     public String toString() {
-        return "data e ora=" + dataora + "main=" + main + ", visibilità=" + visibilita + ", temp_max="
-                + temp_MAX + ", temp_min=" + temp_MIN + ", feels_like=" + feels_like + ", varianza=" + varianza;
+        return "data e ora=" + dataora + ", temp_max="
+                + temp_MAX + ", temp_min=" + temp_MIN + ", feels_like=" + feels_like;
     }
 
-    public Vector<Double> getValoriVECTOR() {
+    /*public Vector<Double> getValoriVECTOR() {
 
         return this.wind;
     }
@@ -166,5 +152,5 @@ public class Forecast implements Valori {
 
     public double getTemp() {
         return temp;
-    }
+    }*/
 }
