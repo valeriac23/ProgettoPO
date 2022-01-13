@@ -18,25 +18,8 @@ import org.springframework.web.client.RestTemplate;
 
 
 @Service
-public class ServiceSalvataggio {
-    private static String api_key = "06d32b64e3cb4b1823645e35975b7053";
-    private Object nome;
+public class ServiceSalvataggio extends SerrviceAPICall {
 
-
-    public JSONObject getCity(String city) throws URISyntaxException, JSONException {
-        JSONObject obj;
-        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + api_key;
-        /*try {
-            URI uri = new URI(url);*/
-
-        RestTemplate rt = new RestTemplate();
-
-        obj = new JSONObject(rt.getForObject(url,String.class));
-        /*} catch (URISyntaxException e) {
-            e.printStackTrace();
-        }*/
-        return obj;
-    }
 
     /*public Citta getCityInfo(String cityName) throws JSONException, URISyntaxException {
 
@@ -186,9 +169,7 @@ public class ServiceSalvataggio {
 
     public String salvataggio(String cityName) throws JSONException, URISyntaxException {
 
-        Citta city = getCityFilter(cityName);
-        JSONObject object = new JSONObject();
-        object = toJSON(city);
+
 
 
 
@@ -200,6 +181,10 @@ public class ServiceSalvataggio {
 
         try{
             PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(rotta)));
+            Citta city = getCityFilter(cityName);
+            JSONObject object = new JSONObject();
+            object = toJSON(city);
+
 
 
             output.println(object.toString());
