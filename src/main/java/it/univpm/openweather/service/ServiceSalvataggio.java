@@ -1,24 +1,22 @@
 package it.univpm.openweather.service;
 
-import it.univpm.openweather.model.*;
-import it.univpm.openweather.model.filter.*;
-
-import java.time.*;
-import java.util.*;
-import java.net.*;
-import java.io.*;
-import java.lang.*;
-
-
+import it.univpm.openweather.model.Citta;
+import it.univpm.openweather.model.filter.Forecast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
+import java.io.*;
+import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Vector;
 
 
 @Service
-public class ServiceSalvataggio extends SerrviceAPICall {
+public class ServiceSalvataggio extends ServiceAPICall {
 
 
     /*public Citta getCityInfo(String cityName) throws JSONException, URISyntaxException {
@@ -168,8 +166,6 @@ public class ServiceSalvataggio extends SerrviceAPICall {
 
 
     public String salvataggio(String cityName) throws JSONException, URISyntaxException {
-
-
 
 
 

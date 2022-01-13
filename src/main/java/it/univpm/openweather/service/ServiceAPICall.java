@@ -9,7 +9,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Service
-public class SerrviceAPICall {
+public class ServiceAPICall {
 
     private String cityName;
     private static String api_key = "06d32b64e3cb4b1823645e35975b7053";
