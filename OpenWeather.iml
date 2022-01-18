@@ -98,6 +98,9 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.13" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.3.13" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.8.3" level="project" />
+    <orderEntry type="library" name="Maven: com.jtransc:jtransc-rt:0.5.3" level="project" />
+    <orderEntry type="library" name="Maven: com.jtransc:jtransc-rt-core:0.5.3" level="project" />
+    <orderEntry type="library" name="Maven: com.jtransc:jtransc-annotations:0.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20211205" level="project" />
   </component>
 </module>

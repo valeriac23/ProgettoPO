@@ -3,19 +3,26 @@ package it.univpm.openweather.model.filter;
 import java.util.Vector;
 
 public class Forecast /*implements Valori*/ {
-    private Vector<Double> wind = new Vector<Double>();
 
 
+    private double speed;
     private double temp;
     private double temp_MAX;
     private double temp_MIN;
-
     private double feels_like;
-
     private String dataora;
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
 
     public Forecast(){
 
+        this.speed = speed;
         this.temp = temp;
         this.temp_MAX= temp_MAX;
         this.temp_MIN= temp_MIN;
@@ -25,6 +32,14 @@ public class Forecast /*implements Valori*/ {
 
     public double getTemp() {
         return temp;
+    }
+
+    public String getDataora() {
+        return dataora;
+    }
+
+    public void setDataora(String dataora) {
+        this.dataora = dataora;
     }
 
     public void setTemp(double temp) {
@@ -64,12 +79,18 @@ public class Forecast /*implements Valori*/ {
         this.dataora = dataora;
     }
 
-
     @Override
     public String toString() {
-        return "data e ora=" + dataora + ", temp_max="
-                + temp_MAX + ", temp_min=" + temp_MIN + ", feels_like=" + feels_like;
+        return "Forecast{" +
+                "speed= " + speed +
+                ", temp= " + temp +
+                ", temp_MAX= " + temp_MAX +
+                ", temp_MIN= " + temp_MIN +
+                ", feels_like= " + feels_like +
+                ", dataora= '" + dataora + '\'' +
+                '}';
     }
+
 
     /*public Vector<Double> getValoriVECTOR() {
 

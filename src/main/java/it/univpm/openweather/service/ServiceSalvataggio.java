@@ -9,14 +9,27 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 @Service
 public class ServiceSalvataggio extends ServiceAPICall {
+
 
 
     /*public Citta getCityInfo(String cityName) throws JSONException, URISyntaxException {
@@ -63,12 +76,29 @@ public class ServiceSalvataggio extends ServiceAPICall {
     public Citta getCityInfo(String cityName) throws JSONException, URISyntaxException {
         JSONObject objCity = getCity(cityName);
         Citta city = new Citta(cityName);
+        JSONObject counter;
+        long id = 0;
+        String name = null, dt_txt = null;
+        try {
 
-        long id = objCity.getLong("id");
-        String name = objCity.getString("name");
+            JSONObject getCity = objCity.getJSONObject("city");
+            id = getCity.getLong("id");
+            name = getCity.getString("name");
+            JSONArray arrayCity = objCity.getJSONArray("list");
+            for (int i = 0; i < arrayCity.length(); i++) {
+                counter = objCity.getJSONObject(String.valueOf(i));
+                dt_txt = counter.getString("dt_txt");
+
+            }
+
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         city.setId(id);
         city.setNome(name);
+        city.setData(dt_txt);
 
         return city;
     }
@@ -78,119 +108,74 @@ public class ServiceSalvataggio extends ServiceAPICall {
         Citta city = new Citta(cityName);
         city = getCityInfo(cityName);
 
-        Forecast forecast = new Forecast();
-        JSONObject getMain = objCity.getJSONObject("main");
-        forecast.setTemp(getMain.getDouble("temp"));
-        forecast.setFeels_like(getMain.getDouble("feels_like"));
-        forecast.setTemp_MIN(getMain.getDouble("temp_min"));
-        forecast.setTemp_MAX(getMain.getDouble("temp_max"));
 
-        Vector<Forecast> vectorF = new Vector<Forecast>(getMain.length());
-        vectorF.add(forecast);
+        JSONObject counter;
+
+        JSONArray arrayCity = objCity.getJSONArray("list");
+
+        Vector<Forecast> vectorF = new Vector<Forecast>(arrayCity.length());
+
+
+        try {
+
+            for (int i = 0; i < arrayCity.length(); i++) {
+                Forecast forecast = new Forecast();
+                counter = arrayCity.getJSONObject(i);
+                JSONObject getWind = counter.getJSONObject("wind");
+                forecast.setSpeed(getWind.getDouble("speed"));
+                forecast.setDataora(counter.getString("dt_txt"));
+                JSONObject getMain = counter.getJSONObject("main");
+                forecast.setTemp(getMain.getDouble("temp"));
+                forecast.setFeels_like(getMain.getDouble("feels_like"));
+                forecast.setTemp_MIN(getMain.getDouble("temp_min"));
+                forecast.setTemp_MAX(getMain.getDouble("temp_max"));
+
+
+                vectorF.add(forecast);
+
+            }
+
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
 
         city.setForecast(vectorF);
-
+        System.out.println(city.toString());
 
 
         return city;
-    }
-
-    public JSONObject getCurrent(String cityName) throws JSONException, URISyntaxException {
-        JSONObject objReturn = new JSONObject();
-        JSONArray array = new JSONArray();
-        JSONObject obj = new JSONObject();
-
-        JSONObject getCity = getCity(cityName);
-        JSONObject getMain = getCity.getJSONObject("main");
-        JSONObject counter;
-
-        obj.put("Nome",getCity.getString("name"));
-        obj.put("Id",getCity.getLong("id"));
-
-
-        for (int i = 0; i < getMain.length(); i++){
-            obj.put("Temp", getMain.getDouble("temp"));
-            obj.put("Feels Like",getMain.getDouble("feels_like"));
-            obj.put("Temp min",getMain.getDouble("temp_min"));
-            obj.put("Temp max",getMain.getDouble("temp_max"));
-
-        }
-        JSONObject getWind = getCity.getJSONObject("wind");
-        for(int i = 0; i < getWind.length();i++){
-            obj.put("Speed",getWind.getDouble("speed"));
-        }
-
-        array.put(obj);
-
-        objReturn.put("Weather",array);
-
-        return objReturn;
-    }
-
-    public JSONObject toJSON (Citta city) throws JSONException, URISyntaxException {
-        JSONObject listobj = new JSONObject();
-
-        listobj.put("name", city.getNome());
-        listobj.put("idcittà", city.getidcitta());
-
-        /*for (int i = 0; i < city.getVelVento().size(); i++) {
-            DatiVento counter = city.getVelVento().get(i);
-            //listobj.put("data", (city.getVelVento()).get(i).getDataora()); // getDataOra da fare in Citta
-            listobj.put("velocità", (counter.getVelVento()));
-        }*/
-
-        Forecast fct = new Forecast();
-
-        JSONArray MainArr = new JSONArray();
-        JSONObject Mainlist = new JSONObject();
-
-        //Mainlist.put("data", (fct.getTime()));
-
-        for(int i = 0; i < city.getForecasts().size();i++){
-            Forecast counter = city.getForecasts().get(i);
-            Mainlist.put("temp", (counter.getTemp()));
-            Mainlist.put("temp_max", (counter.getTemp_MAX()));
-            Mainlist.put("temp_min", (counter.getTemp_MIN()));
-            Mainlist.put("feels_like", (counter.getFeels_like()));
-            MainArr.put(Mainlist);
-            Mainlist.put("Main", MainArr);
-        }
-
-        listobj.put("JSON dati ",Mainlist);
-        System.out.println(listobj);
-
-        return listobj;
-
     }
 
 
     public String salvataggio(String cityName) throws JSONException, URISyntaxException {
 
 
+        Citta city = getCityFilter(cityName);
 
         LocalDate today = LocalDate.now();
 
-        String nomeFile = cityName+"-"+today;
+        String nomeFile = cityName + "-" + today;
 
-        String rotta = System.getProperty("user.dir")+"//" + nomeFile+".txt";
+        String rotta = System.getProperty("user.dir")+ "\\" + nomeFile + ".json";
 
-        try{
+        try {
+
             PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(rotta)));
-            Citta city = getCityFilter(cityName);
+
             JSONObject object = new JSONObject();
-            object = toJSON(city);
+            ToJSON tj = new ToJSON();
+            object = tj.toJSON(city);
 
-
+            System.out.println(object);
 
             output.println(object.toString());
             output.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-
         } catch (IOException e) {
             e.printStackTrace();
+
         }
 
         return rotta;
@@ -198,35 +183,20 @@ public class ServiceSalvataggio extends ServiceAPICall {
 
     }
 
-    public String  salvataggioOgniOra (String cityName) throws JSONException,URISyntaxException{
-        String rotta = System.getProperty("user.dir")+ "src/main/java/"+ cityName + "salvataggioOra.json";
+    public String salvataggioOgniOra(String cityName){
+        String rotta = System.getProperty("user.dir") + "/main/resources/" + cityName + "salvataggioOra.json";
         File file = new File(rotta);
 
-        TimerTask timerTask = new TimerTask() {
+        TimerTask tk = new TimerTask() {
             @Override
             public void run() {
 
-                JSONObject current = new JSONObject();
-                JSONObject actual = new JSONObject();
-                try {
-                    current = getCurrent(cityName);
-                    actual = current.getJSONObject(String.valueOf(0));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
-
-                /*try {
-                    objCity = toJSON(cityName);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }*/
-
-
                 try{
+
+                    Citta city = getCityFilter(cityName);
+                    ToJSON tj = new ToJSON();
+                    JSONObject obj = tj.toJSON(city);
+
                     if(!file.exists()){
                         file.createNewFile();
                     }
@@ -234,25 +204,24 @@ public class ServiceSalvataggio extends ServiceAPICall {
 
                     BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-                    bufferedWriter.write(actual.toString());
-                    bufferedWriter.write("\n");
-                    bufferedWriter.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    fileWriter.write(obj.toString() + "\n");
+                    System.out.println(obj.toString());
+                    fileWriter.close();
+
+
+                }catch (IOException | JSONException | URISyntaxException e){e.printStackTrace();}
+
             }
         };
-        Timer timer = new Timer();
-        timer.schedule(timerTask,0,3600000);
 
-        return "Salvato in " + rotta;
+        Timer timer = new Timer();
+        timer.schedule(tk,0,3600000);
+
+
+        return"Salvato in "+rotta;
+
+
+
 
     }
 }
-
-
-
-
-
-
-

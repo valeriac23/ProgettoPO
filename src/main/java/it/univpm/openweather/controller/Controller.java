@@ -54,7 +54,7 @@ public class Controller {
     @GetMapping(value = "/test")
     public ResponseEntity<Object> get(@RequestParam String cityName) throws JSONException, URISyntaxException {
         //Citta city = service1.getCityInfo(cityName);
-        JSONObject obj = service1.getCurrent(cityName);
+        JSONObject obj = null;//service1.ge(cityName);
 
         System.out.println(obj.toString());
 

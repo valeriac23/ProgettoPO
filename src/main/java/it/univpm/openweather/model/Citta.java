@@ -7,8 +7,16 @@ import java.util.Vector;
 public class Citta {
     private String nome;
     private long id;
-    private Vector<DatiVento> speedVento;
     private Vector<Forecast> forecasts;
+    private String data;
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
 
     public Citta(String nome, long id) {
         this.nome = nome;
@@ -48,12 +56,14 @@ public class Citta {
         this.id = id;
     }
 
-    public Vector<DatiVento> getVelVento () {
-        return speedVento;
-    }
-    public void setVelVento(Vector<DatiVento> speedVento) {
-
-        this.speedVento = speedVento;
+    @Override
+    public String toString() {
+        return "Citta{" +
+                "nome= ' " + nome + '\'' +
+                ", id= " + id +
+                ", Forecasts = " + forecasts +
+                ", data ='" + data + '\'' +
+                '}';
     }
 
     public Vector<Forecast> getForecasts() {
@@ -65,10 +75,8 @@ public class Citta {
 
     }
 
-    @Override
-    public String toString() {
-        return "Citta{"+ "nome='" + nome + '\'' + ", id=" + id
-                + ", speedVento=" + speedVento + ", forecasts=" + forecasts + '}';
-    }
+
+
+
 }
 

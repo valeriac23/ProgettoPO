@@ -11,42 +11,55 @@
 
  import static it.univpm.openweather.model.filter.TempStats.*;
 
- public class ToJSON extends ServiceSalvataggio {
+ public class ToJSON extends Citta {
+
+
+     Citta city = new Citta();
 
      public JSONObject toJSON (Citta city) throws JSONException, URISyntaxException {
 
+
          JSONObject listobj = new JSONObject();
+         try{
 
-         listobj.put("name", city.getNome());
-         listobj.put("idcittà", city.getidcitta());
 
-        /*for (int i = 0; i < city.getVelVento().size(); i++) {
-            DatiVento counter = city.getVelVento().get(i);
-            //listobj.put("data", (city.getVelVento()).get(i).getDataora()); // getDataOra da fare in Citta
-            listobj.put("velocità", (counter.getVelVento()));
-        }*/
+             listobj.put("Name", city.getNome());
+             listobj.put("Id", city.getidcitta());
 
-         Forecast fct = new Forecast();
+             JSONArray MainArr = new JSONArray();
 
-         JSONArray MainArr = new JSONArray();
-         JSONObject Mainlist = new JSONObject();
+             //Mainlist.put("data", (fct.getTime()));
 
-         //Mainlist.put("data", (fct.getTime()));
+             for(int i = 0; i < city.getForecasts().size();i++){
 
-         for(int i = 0; i < city.getForecasts().size();i++){
-             Forecast counter = city.getForecasts().get(i);
-             Mainlist.put("temp", (counter.getTemp()));
-             Mainlist.put("temp_max", (counter.getTemp_MAX()));
-             Mainlist.put("temp_min", (counter.getTemp_MIN()));
-             Mainlist.put("feels_like", (counter.getFeels_like()));
-             MainArr.put(Mainlist);
-             Mainlist.put("Main", MainArr);
-         }
 
-         listobj.put("JSON dati ",Mainlist);
-         System.out.println(listobj);
+                 JSONObject Mainlist = new JSONObject();
+                 JSONObject main = new JSONObject();
+                 Forecast counter = new Forecast();
 
-         return listobj;
+                 counter = city.getForecasts().get(i);
+                 Mainlist.put("Data",(counter.getDataora()));
+                 Mainlist.put("Speed",(counter.getSpeed()));
+                 Mainlist.put("Temp", (counter.getTemp()));
+                 Mainlist.put("Temp_max", (counter.getTemp_MAX()));
+                 Mainlist.put("Temp_min", (counter.getTemp_MIN()));
+                 Mainlist.put("Feels_Like", (counter.getFeels_like()));
+
+                 main.put("Main",Mainlist);
+                 MainArr.put(main);
+                 //Mainlist.put("Main", MainArr);
+             }
+
+
+
+             listobj.put("JSON-DATI ",MainArr);
+             System.out.println(listobj);
+             return listobj;
+         }catch (StackOverflowError e){ e.printStackTrace();}
+
+         JSONObject test = new JSONObject();
+         test.put("Errore","errore stack");
+         return test;
 
      }
 
