@@ -69,11 +69,11 @@
 
 
          JSONObject dati = new JSONObject();
-         Vector<Double> wind = wind ();
-         dati.put("Valore massimo", Massimi(wind));
-         dati.put("Valore minimo", Minimi(wind));
-         dati.put("Valore medio",Medium(wind));
-         dati.put("Varianza", Variance(wind));
+         Vector<Double> wind = new Vector<>();
+         dati.put("Valore massimo", Massimi(getValori_max(wind)));
+         dati.put("Valore minimo", Minimi(getValori_min(wind)));
+         dati.put("Valore medio",Medium(getValori_medium(wind)));
+         dati.put("Varianza", Variance(getValori_var(wind)));
 
          obj.put("Nome città",0);
 

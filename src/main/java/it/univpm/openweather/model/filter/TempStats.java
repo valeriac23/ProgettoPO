@@ -3,10 +3,21 @@ package it.univpm.openweather.model.filter;
 import java.util.Vector;
 
 
-public class TempStats {
+public class TempStats extends Forecast {
 
-        private Vector<Double> wind = new Vector<Double>();
-        private static double media;
+    private Vector<Double> wind = new Vector<>();
+    private Vector<Double> SpeedVector = new Vector<>();
+    private Vector<Double> VectorMax = new Vector<>();
+    private Vector<Double> VectorMin = new Vector<>();
+    private Vector<Double> TempVector = new Vector<>();
+    private Vector<Double> FL_Vector = new Vector<>();
+    private static double media;
+    private double max_SpeedVento;
+    private double min_SpeedVento;
+    private double varianza;
+
+
+        private static double ValoreTemp;
         private static double ValoreMax;
         private static double ValoreMin;
         private static double ValoreMedio;
@@ -14,7 +25,9 @@ public class TempStats {
 
 
 
-    public static Double Massimi(Vector<Double> wind){
+    public static Double Massimi(double ValoreMax){
+            Vector<Double> wind = new Vector<>();
+
 
             Double max_SpeedVento = wind.get(0);
 
@@ -23,9 +36,23 @@ public class TempStats {
                     max_SpeedVento = wind.get(i);
             }
             return max_SpeedVento;
-        }
 
-        public static Double Minimi(Vector<Double> wind){
+    }
+
+   /* public double max (Vector<Double> wind){
+        max_SpeedVento = Collections.max(wind);
+        return max_SpeedVento;
+
+    }*/
+
+    private Vector<Double> VectorMax() {
+        VectorMax().add(max_SpeedVento);
+        return VectorMax();
+    }
+
+    public static Double Minimi(double temp_min){
+             Vector<Double> wind = new Vector <>();
+
             Double min_SpeedVento = wind.get(0);
 
             for(int i = 0; i<wind.size(); i++){
@@ -34,9 +61,16 @@ public class TempStats {
             }
             return min_SpeedVento;
 
+
         }
 
-        public static double Medium(Vector<Double> wind){
+        private Vector<Double> VectorMin() {
+             VectorMin().add(min_SpeedVento);
+              return VectorMin();
+         }
+
+        public static Double Medium(double temp_medium){
+            Vector<Double> wind = new Vector <>();
 
             Double sum = 0.0;
             double media;
@@ -48,7 +82,14 @@ public class TempStats {
             return media;
         }
 
-        public static double Variance(Vector<Double> wind) {
+          private Vector<Double> VectorMedium() {
+            VectorMedium().add(media);
+            return VectorMedium();
+    }
+
+        public static Double Variance(double variance) {
+
+            Vector<Double> wind = new Vector <>();
             double var = 0;
             double varianza;
             for (double w : wind) {
@@ -58,6 +99,11 @@ public class TempStats {
 
 
             return varianza;
+        }
+
+         private Vector<Double> VectorVariance() {
+            VectorVariance().add(varianza);
+             return VectorVariance();
         }
 
     public static double getValori_max(Vector<Double> wind) {
@@ -74,6 +120,30 @@ public class TempStats {
 
     public static double getValori_var(Vector<Double> wind) {
         return ValoreVar;
+    }
+
+    public static double getValori_temp(Vector<Double> wind) {
+        return ValoreTemp;
+    }
+
+    private Vector<Double> wind() {
+        return wind();
+    }
+    
+    public Vector<Double> SpeedVector(){
+        return SpeedVector();
+    }
+
+    public Vector<Double> vectorMin(){
+       return vectorMin();
+    }
+
+    public Vector<Double> vectorMax() {
+        return VectorMax();
+    }
+
+    public Vector<Double> vectorVariance(){
+        return VectorVariance();
     }
 
 

@@ -1,9 +1,6 @@
 package it.univpm.openweather.model.filter;
 
-import java.util.Vector;
-
 public class Forecast /*implements Valori*/ {
-
 
     private double speed;
     private double temp;
