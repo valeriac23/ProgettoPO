@@ -10,11 +10,8 @@ import org.springframework.beans.CachedIntrospectionResults;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.IIOException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 
-import java.io.IOException;
 import java.util.Vector;
 
 @Service
@@ -72,7 +69,7 @@ public class ServiceStats {
 
     }
 
-    public JSONObject returnObj(String cityName, int sceltaGiorno) throws Exception {
+        public JSONObject returnObj(String cityName, int sceltaGiorno) throws Exception {
         Citta objFile = readSave(cityName,sceltaGiorno);
         JSONObject objReturn = tj.statsToJSON(objFile,sceltaGiorno);
 
