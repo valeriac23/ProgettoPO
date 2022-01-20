@@ -15,6 +15,7 @@
 
 
      Citta city = new Citta();
+     ServiceStats serviceStats = new ServiceStats();
 
      public JSONObject toJSON (Citta city) throws JSONException, URISyntaxException {
 
@@ -25,6 +26,7 @@
 
              listobj.put("Name", city.getNome());
              listobj.put("Id", city.getidcitta());
+
 
              JSONArray MainArr = new JSONArray();
 
@@ -65,21 +67,30 @@
      }
 
 
-     public JSONObject statsToJSON(JSONObject obj) throws Exception {
+     public JSONObject statsToJSON(Citta obj) throws Exception {
+
 
 
          JSONObject dati = new JSONObject();
-         Vector<Double> wind = new Vector<>();
-         dati.put("Valore massimo", Massimi(getValori_max(wind)));
-         dati.put("Valore minimo", Minimi(getValori_min(wind)));
-         dati.put("Valore medio",Medium(getValori_medium(wind)));
-         dati.put("Varianza", Variance(getValori_var(wind)));
+         Vector<Double> speed = new Vector<>(obj.getForecasts().size());
+         System.out.println("Get forecast:  " + obj.getForecasts().toString());
+         for(int i = 0; i < obj.getForecasts().size();i++){
+             Forecast counter = obj.getForecasts().get(i);
+             speed.add(counter.getSpeed());
+         }
 
-         obj.put("Nome città",0);
 
-         obj.put("Statistiche temperature vento", dati);
+         //dati.put("Valore massimo", Massimi(getValori_max()));
+         //dati.put("Valore minimo", Minimi(getValori_min(wind)));
+         dati.put("Valore medio",Medium(speed));
+         //dati.put("Varianza", Variance(getValori_var(wind)));
 
-         return obj;
+         //obj.put("Nome città",0);
+
+         //obj.put("Statistiche temperature vento", dati);
+         System.out.println("Dati speed: " + dati);
+
+         return dati;
      }
 
      private Vector<Double> wind() {

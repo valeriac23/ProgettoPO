@@ -17,11 +17,11 @@ public class TempStats extends Forecast {
     private double varianza;
 
 
-        private static double ValoreTemp;
-        private static double ValoreMax;
-        private static double ValoreMin;
-        private static double ValoreMedio;
-        private static double ValoreVar;
+    private static double ValoreTemp;
+    private static double ValoreMax;
+    private static double ValoreMin;
+    private static double ValoreMedio;
+    private static double ValoreVar;
 
 
 
@@ -69,8 +69,8 @@ public class TempStats extends Forecast {
               return VectorMin();
          }
 
-        public static Double Medium(double temp_medium){
-            Vector<Double> wind = new Vector <>();
+        public static Double Medium(Vector<Double> wind){
+            //Vector<Double> wind = new Vector <>();
 
             Double sum = 0.0;
             double media;

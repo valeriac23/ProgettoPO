@@ -1,8 +1,11 @@
 package it.univpm.openweather.service;
 
+import it.univpm.openweather.model.Citta;
+import it.univpm.openweather.model.filter.Forecast;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.springframework.beans.CachedIntrospectionResults;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -13,9 +16,9 @@ import java.util.Vector;
 
 @Service
 public class ServiceStats {
-    private static ToJSON tj;
+    private static ToJSON tj = new ToJSON();
 
-    public JSONObject readSave(String cityName,int sceltaGiorno){
+    public Citta readSave(String cityName,int sceltaGiorno){
         String rotta = System.getProperty("user.dir")+ "\\src\\main\\resources\\"+ cityName + "_SalvataggioOgniOra.json";
         File file = new File(rotta);
         String name = null;
@@ -25,42 +28,39 @@ public class ServiceStats {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             JSONTokener tokener = new JSONTokener(bufferedReader);
             JSONObject objRitorno = new JSONObject();
+            Citta city = new Citta(cityName);
 
             while(bufferedReader.readLine() != null){
                 JSONObject lettura = new JSONObject(tokener);
-                JSONObject arrayFile = lettura.getJSONObject("JSON-DATI");
-                String nome = lettura.getString("Name");
-                long id = lettura.getLong("Id");
+                JSONArray arrayFile = lettura.getJSONArray("JSON-DATI ");
+
+                city.setNome(lettura.getString("Name"));
+                city.setId(lettura.getLong("Id"));
+                Vector<Forecast> vf = new Vector<>(arrayFile.length());
+
                 JSONObject counter;
-                Vector<Double> vSpeed = new Vector<>(arrayFile.length());
-                Vector<Double> vFeelsLike = new Vector<>(arrayFile.length());
-                Vector<Double> vTempMin = new Vector<>(arrayFile.length());
-                Vector<Double> vTempMax = new Vector<>(arrayFile.length());
-                Vector<Double> vTemp = new Vector<>(arrayFile.length());
+
 
                 int lunghezza = sceltaGiorno * 8;
                 for(int i = 0; i < lunghezza; i++)
                 {
-                    counter = (JSONObject) arrayFile.get(String.valueOf(i));
+                    Forecast forecast = new Forecast();
+                    counter = (JSONObject) arrayFile.get(i);
                     JSONObject main = counter.getJSONObject("Main");
-                    vSpeed.add(main.getDouble("Speed"));
-                    vFeelsLike.add(main.getDouble("Feels_Like"));
-                    vTemp.add(main.getDouble("Temp"));
-                    vTempMax.add(main.getDouble("Temp_max"));
-                    vTempMin.add(main.getDouble("Temp_min"));
+                    forecast.setSpeed(main.getDouble("Speed"));
+                    forecast.setFeels_like(main.getDouble("Feels_Like"));
+                    forecast.setTemp(main.getDouble("Temp"));
+                    forecast.setTemp_MAX(main.getDouble("Temp_max"));
+                    forecast.setTemp_MIN(main.getDouble("Temp_min"));
+                    vf.add(forecast);
                 }
+                city.setForecast(vf);
+                objRitorno.put("Citta",city);
                 bufferedReader.close();
 
-                objRitorno.put("name",name);
-                objRitorno.put("id",id);
-                objRitorno.put("giorno",sceltaGiorno);
-                objRitorno.put("vSpeed",vSpeed);
-                objRitorno.put("vFeelsLike",vFeelsLike);
-                objRitorno.put("vTemp",vTemp);
-                objRitorno.put("vTempMax",vTempMax);
-                objRitorno.put("vTempMin",vTempMin);
+                System.out.println(objRitorno);
 
-                return objRitorno;
+                return city;
 
 
             }
@@ -74,7 +74,7 @@ public class ServiceStats {
     }
 
     public JSONObject returnObj(String cityName, int sceltaGiorno) throws Exception {
-        JSONObject objFile = readSave(cityName,sceltaGiorno);
+        Citta objFile = readSave(cityName,sceltaGiorno);
         JSONObject objReturn = tj.statsToJSON(objFile);
 
         return objReturn;
