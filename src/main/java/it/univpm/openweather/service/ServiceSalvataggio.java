@@ -32,47 +32,11 @@ public class ServiceSalvataggio extends ServiceAPICall {
 
 
 
-    /*public Citta getCityInfo(String cityName) throws JSONException, URISyntaxException {
-
-        JSONObject objCity = getCity(cityName);
-
-        Citta city = new Citta();
-        DatiVento datiVento = new DatiVento();
-        Forecast forecast = new Forecast();
-
-        JSONObject getMain = objCity.getJSONObject("main");
-        for(int i = 0; i < getMain.length();i++){
-            JSONObject counter = getMain.getJSONObject(String.valueOf(i));
-            forecast.setTemp(counter.getDouble("temp"));
-            forecast.setFeels_like(counter.getDouble("feels_like"));
-            forecast.setTemp_MAX(counter.getDouble("temp_min"));
-            forecast.setTemp_MIN(counter.getDouble("temp_max"));
-        }
-
-        JSONObject prova = new JSONObject();
-        JSONObject getWind = objCity.getJSONObject("wind");
-        datiVento.setVelVento(getWind.getDouble("speed"));
-        prova.put("Speed",getWind.getDouble("speed"));
-        System.out.println(prova);
-
-        city.setNome(objCity.getString("name"));
-        city.setId(objCity.getLong("id"));
-
-        Vector<DatiVento> vectorVento = new Vector<DatiVento>(getWind.length());
-        vectorVento.add(datiVento);
-        city.setVelVento(vectorVento);
-
-        Vector<Forecast> vectorForecast = new Vector<>(getMain.length());
-        vectorForecast.add(forecast);
-        city.setForecast(vectorForecast);
-
-        System.out.println(city);
-
-        return city;
 
 
 
-    }*/
+
+
     public Citta getCityInfo(String cityName) throws JSONException, URISyntaxException {
         JSONObject objCity = getCity(cityName);
         Citta city = new Citta(cityName);
@@ -158,7 +122,7 @@ public class ServiceSalvataggio extends ServiceAPICall {
 
         String nomeFile = cityName + "-" + today;
 
-        String rotta = System.getProperty("user.dir")+ "\\" + nomeFile + ".json";
+        String rotta = System.getProperty("user.dir")+ "\\src\\main\\resources\\"+ nomeFile + ".json";
 
         try {
 
@@ -184,7 +148,8 @@ public class ServiceSalvataggio extends ServiceAPICall {
     }
 
     public String salvataggioOgniOra(String cityName){
-        String rotta = System.getProperty("user.dir") + "/main/resources/" + cityName + "salvataggioOra.json";
+        String rotta = System.getProperty("user.dir")+ "\\src\\main\\resources\\"+ cityName + "_SalvataggioOgniOra.json";
+
         File file = new File(rotta);
 
         TimerTask tk = new TimerTask() {

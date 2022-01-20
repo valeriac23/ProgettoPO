@@ -5,6 +5,7 @@ import it.univpm.openweather.model.Citta;
 import it.univpm.openweather.service.ServiceSalvataggio;
 
 import it.univpm.openweather.service.ServiceSpeed;
+import it.univpm.openweather.service.ServiceStats;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -48,18 +49,25 @@ public class Controller {
     }
     @GetMapping(value = "/savehour")
     public String saveEveryHour(@RequestParam String cityName) throws IOException, JSONException, URISyntaxException {
-        String string = service1.salvataggio(cityName);
+        String string = service1.salvataggioOgniOra(cityName);
         return "Il file si sta aggiornando..." + string;
     }
-    @GetMapping(value = "/test")
-    public ResponseEntity<Object> get(@RequestParam String cityName) throws JSONException, URISyntaxException {
-        //Citta city = service1.getCityInfo(cityName);
-        JSONObject obj = null;//service1.ge(cityName);
-
+    @Autowired
+    ServiceStats service2;
+    @GetMapping(value = "/hour/stats")
+    public ResponseEntity<Object> get(@RequestParam String cityName, @RequestParam int sceltaGiorno) throws Exception {
+        String salvataggioFile = service1.salvataggioOgniOra(cityName);
+        JSONObject obj = service2.returnObj(cityName,sceltaGiorno);
         System.out.println(obj.toString());
-
         return new ResponseEntity<>(obj.toString(), HttpStatus.OK);
     }
+    @GetMapping(value = "/stats")
+    public ResponseEntity<Object> get2(@RequestParam String cityName, @RequestParam int sceltaGiorno) throws Exception {
+        JSONObject obj = service2.returnObj(cityName,sceltaGiorno);
+        System.out.println(obj.toString());
+        return new ResponseEntity<>(obj.toString(), HttpStatus.OK);
+    }
+
 
 
 }

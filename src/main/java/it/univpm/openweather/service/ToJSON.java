@@ -53,6 +53,7 @@
 
 
              listobj.put("JSON-DATI ",MainArr);
+             System.out.println("La lunghezza dell'array è: " + MainArr.length());
              System.out.println(listobj);
              return listobj;
          }catch (StackOverflowError e){ e.printStackTrace();}
@@ -64,9 +65,9 @@
      }
 
 
-     public JSONObject statsToJSON(String cityName, String dataInizio, String dataFine) throws Exception {
+     public JSONObject statsToJSON(JSONObject obj) throws Exception {
 
-         JSONObject obj = new JSONObject();
+
          JSONObject dati = new JSONObject();
          Vector<Double> wind = wind ();
          dati.put("Valore massimo", Massimi(wind));
@@ -74,9 +75,8 @@
          dati.put("Valore medio",Medium(wind));
          dati.put("Varianza", Variance(wind));
 
-         obj.put("Nome città", cityName);
-         obj.put("Data inizio", dataInizio);
-         obj.put("Data fine", dataFine);
+         obj.put("Nome città",0);
+
          obj.put("Statistiche temperature vento", dati);
 
          return obj;
