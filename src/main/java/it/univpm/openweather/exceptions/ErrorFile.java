@@ -1,16 +1,16 @@
 package it.univpm.openweather.exceptions;
 
-public class FasciaNonValida extends Exception{
+public class ErrorFile extends Exception{
 
     public static String messaggio;
 
-    public FasciaNonValida(String message) {
+    public ErrorFile(String message) {
         super(message);
         this.messaggio=message;
     }
 
     public String getMessaggio(){
-        messaggio = "Fascia oraria non valida";
+        messaggio = "File non eseguitp";
         return messaggio;
     }
 }

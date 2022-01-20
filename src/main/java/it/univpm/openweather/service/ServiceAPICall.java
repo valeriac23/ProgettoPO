@@ -13,9 +13,6 @@ public class ServiceAPICall {
 
     private String cityName;
     private static String api_key = "06d32b64e3cb4b1823645e35975b7053";
-    private Object nome;
-
-
 
     public JSONObject getCity(String cityName) throws JSONException,URISyntaxException {
         this.cityName = cityName;

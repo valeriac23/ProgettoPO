@@ -3,22 +3,25 @@ package it.univpm.openweather.service;
 import it.univpm.openweather.model.Citta;
 import it.univpm.openweather.model.filter.Forecast;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.springframework.beans.CachedIntrospectionResults;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.IIOException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.HashSet;
+
+import java.io.IOException;
 import java.util.Vector;
 
 @Service
 public class ServiceStats {
     private static ToJSON tj = new ToJSON();
 
-    public Citta readSave(String cityName,int sceltaGiorno){
+    public Citta readSave(String cityName,int sceltaGiorno) throws JSONException {
         String rotta = System.getProperty("user.dir")+ "\\src\\main\\resources\\"+ cityName + "_SalvataggioOgniOra.json";
         File file = new File(rotta);
         String name = null;
@@ -40,7 +43,6 @@ public class ServiceStats {
 
                 JSONObject counter;
 
-
                 int lunghezza = sceltaGiorno * 8;
                 for(int i = 0; i < lunghezza; i++)
                 {
@@ -61,21 +63,18 @@ public class ServiceStats {
                 System.out.println(objRitorno);
 
                 return city;
-
-
             }
 
-        }catch (Exception e){
+        }catch (IOException e){
             e.printStackTrace();
         }
-
         return null;
 
     }
 
     public JSONObject returnObj(String cityName, int sceltaGiorno) throws Exception {
         Citta objFile = readSave(cityName,sceltaGiorno);
-        JSONObject objReturn = tj.statsToJSON(objFile);
+        JSONObject objReturn = tj.statsToJSON(objFile,sceltaGiorno);
 
         return objReturn;
     }

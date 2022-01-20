@@ -10,14 +10,6 @@ public class Citta {
     private Vector<Forecast> forecasts;
     private String data;
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
     public Citta(String nome, long id) {
         this.nome = nome;
         this.id = id;
@@ -33,37 +25,29 @@ public class Citta {
         super();
     }
 
-
-    public String getNome() {
-
-        return nome;
+    public String getData() {
+        return data;
     }
 
+    public void setData(String data) {
 
-    public void setNome(String name)
-    {
+        this.data = data;
+    }
+
+    public String getNome() { return nome; }
+
+
+    public void setNome(String name) {
 
         this.nome = name;
     }
 
 
-    public long getidcitta() {
-
-        return id;
-    }
+    public long getidcitta() { return id; }
 
     public void setId(long id) {
-        this.id = id;
-    }
 
-    @Override
-    public String toString() {
-        return "Citta{" +
-                "nome= ' " + nome + '\'' +
-                ", id= " + id +
-                ", Forecasts = " + forecasts +
-                ", data ='" + data + '\'' +
-                '}';
+        this.id = id;
     }
 
     public Vector<Forecast> getForecasts() {
@@ -71,12 +55,18 @@ public class Citta {
     }
 
     public void setForecast(Vector<Forecast> forecasts) {
-            this.forecasts = forecasts;
 
+        this.forecasts = forecasts;
     }
-
-
-
+    @Override
+    public String toString() {
+        return "Citta{" +
+                "Nome= ' " + nome + '\'' +
+                ", Id= " + id +
+                ", Forecasts = " + forecasts +
+                ", Data ='" + data + '\'' +
+                '}';
+    }
 
 }
 

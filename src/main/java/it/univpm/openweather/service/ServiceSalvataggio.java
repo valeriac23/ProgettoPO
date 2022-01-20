@@ -31,12 +31,6 @@ import java.util.concurrent.TimeUnit;
 public class ServiceSalvataggio extends ServiceAPICall {
 
 
-
-
-
-
-
-
     public Citta getCityInfo(String cityName) throws JSONException, URISyntaxException {
         JSONObject objCity = getCity(cityName);
         Citta city = new Citta(cityName);
@@ -55,7 +49,6 @@ public class ServiceSalvataggio extends ServiceAPICall {
 
             }
 
-
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -72,13 +65,11 @@ public class ServiceSalvataggio extends ServiceAPICall {
         Citta city = new Citta(cityName);
         city = getCityInfo(cityName);
 
-
         JSONObject counter;
 
         JSONArray arrayCity = objCity.getJSONArray("list");
 
         Vector<Forecast> vectorF = new Vector<Forecast>(arrayCity.length());
-
 
         try {
 
@@ -94,27 +85,21 @@ public class ServiceSalvataggio extends ServiceAPICall {
                 forecast.setTemp_MIN(getMain.getDouble("temp_min"));
                 forecast.setTemp_MAX(getMain.getDouble("temp_max"));
 
-
                 vectorF.add(forecast);
 
             }
-
 
         } catch (Exception e) {
             System.out.println(e);
         }
 
-
         city.setForecast(vectorF);
-        System.out.println(city.toString());
-
 
         return city;
     }
 
 
     public String salvataggio(String cityName) throws JSONException, URISyntaxException {
-
 
         Citta city = getCityFilter(cityName);
 
@@ -168,11 +153,8 @@ public class ServiceSalvataggio extends ServiceAPICall {
                     FileWriter fileWriter = new FileWriter(file,true);
 
                     BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
                     fileWriter.write(obj.toString() + "\n");
-                    System.out.println(obj.toString());
                     fileWriter.close();
-
 
                 }catch (IOException | JSONException | URISyntaxException e){e.printStackTrace();}
 
@@ -182,11 +164,7 @@ public class ServiceSalvataggio extends ServiceAPICall {
         Timer timer = new Timer();
         timer.schedule(tk,0,3600000);
 
-
-        return"Salvato in "+rotta;
-
-
-
+        return "Il file -" + rotta + "- si sta aggiornando";
 
     }
 }

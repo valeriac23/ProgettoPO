@@ -35,14 +35,10 @@ public class ServiceSpeed extends ServiceAPICall{
             obj.put("Vento(Speed)",speed);
             obj.put("Data",dt_txt);
 
-
             arrayReturn.put(obj);
         }
 
-
-
         objReturn.put("Tempo Vento",arrayReturn);
-        System.out.println(objReturn);
 
         return objReturn;
 

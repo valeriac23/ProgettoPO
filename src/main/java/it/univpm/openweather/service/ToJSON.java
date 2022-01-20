@@ -27,10 +27,7 @@
              listobj.put("Name", city.getNome());
              listobj.put("Id", city.getidcitta());
 
-
              JSONArray MainArr = new JSONArray();
-
-             //Mainlist.put("data", (fct.getTime()));
 
              for(int i = 0; i < city.getForecasts().size();i++){
 
@@ -49,14 +46,11 @@
 
                  main.put("Main",Mainlist);
                  MainArr.put(main);
-                 //Mainlist.put("Main", MainArr);
+
              }
 
-
-
              listobj.put("JSON-DATI ",MainArr);
-             System.out.println("La lunghezza dell'array è: " + MainArr.length());
-             System.out.println(listobj);
+
              return listobj;
          }catch (StackOverflowError e){ e.printStackTrace();}
 
@@ -67,36 +61,40 @@
      }
 
 
-     public JSONObject statsToJSON(Citta obj) throws Exception {
+     public JSONObject statsToJSON(Citta obj, int sceltaGiorno) throws Exception {
 
 
-
+         JSONArray arrayDati = new JSONArray();
+         JSONObject statistiche = new JSONObject();
          JSONObject dati = new JSONObject();
-         Vector<Double> speed = new Vector<>(obj.getForecasts().size());
-         System.out.println("Get forecast:  " + obj.getForecasts().toString());
+
+         Vector<Double> temp = new Vector<>(obj.getForecasts().size());
+         Vector<Double> temp_max = new Vector<>(obj.getForecasts().size());
+         Vector<Double> temp_min = new Vector<>(obj.getForecasts().size());
+         Vector<Double> feels_like = new Vector<>(obj.getForecasts().size());
+
          for(int i = 0; i < obj.getForecasts().size();i++){
              Forecast counter = obj.getForecasts().get(i);
-             speed.add(counter.getSpeed());
+
+             temp.add(counter.getTemp());
+             temp_max.add(counter.getTemp_MAX());
+             temp_min.add(counter.getTemp_MIN());
+             feels_like.add(counter.getFeels_like());
          }
 
+         statistiche.put("Nome città",obj.getNome());
+         statistiche.put("Numero di giorni scelti",sceltaGiorno);
+         dati.put("Valore massimo", Massimi(temp_max));
+         dati.put("Valore minimo", Minimi(temp_min));
+         dati.put("Valore medio della temperatura percepita", Medium(feels_like));
+         dati.put("Varianza della temperatura percepita",Variance(feels_like));
+         dati.put("Valore medio della temperatura reale",Medium(temp));
+         dati.put("Varianza di temperatura reale", Variance(temp));
 
-         //dati.put("Valore massimo", Massimi(getValori_max()));
-         //dati.put("Valore minimo", Minimi(getValori_min(wind)));
-         dati.put("Valore medio",Medium(speed));
-         //dati.put("Varianza", Variance(getValori_var(wind)));
+         arrayDati.put(dati);
+         statistiche.put("Statistiche", arrayDati);
 
-         //obj.put("Nome città",0);
-
-         //obj.put("Statistiche temperature vento", dati);
-         System.out.println("Dati speed: " + dati);
-
-         return dati;
+         return statistiche;
      }
-
-     private Vector<Double> wind() {
-         return wind();
-     }
-
-
 
  }
