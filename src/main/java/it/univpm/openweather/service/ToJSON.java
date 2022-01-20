@@ -10,12 +10,22 @@
  import java.util.Vector;
 
  import static it.univpm.openweather.model.filter.TempStats.*;
+ /**
+  * Questa classe restituisce tutti i JSON
+  * @author Valeria Cannone
+  * @author Michele Costanzi
+  */
+
 
  public class ToJSON extends Citta {
 
 
      Citta city = new Citta();
      ServiceStats serviceStats = new ServiceStats();
+     /**
+      * Questo metodo restituisce il JSON per i salvataggi
+      * @param city
+      */
 
      public JSONObject toJSON (Citta city) throws JSONException, URISyntaxException {
 
@@ -60,6 +70,11 @@
 
      }
 
+     /**
+      * Questo metodo restituisce il JSON per le statistiche
+      * @param obj
+      * @param sceltaGiorno
+      */
 
      public JSONObject statsToJSON(Citta obj, int sceltaGiorno) throws Exception {
 

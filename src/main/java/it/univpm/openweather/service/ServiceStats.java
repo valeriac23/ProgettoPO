@@ -13,10 +13,22 @@ import javax.imageio.IIOException;
 import java.io.*;
 
 import java.util.Vector;
+/**
+ * Questa classe legge i dati salvati da un file e restituisce un JSONObject con le statistiche
+ * @author Valeria Cannone
+ * @author Michele Costanzi
+ */
+
 
 @Service
 public class ServiceStats {
     private static ToJSON tj = new ToJSON();
+    /**
+     * Questo metodo legge dal file salvato e prende in input i dati resettandoli nella classe Citta
+     * @param cityName
+     * @param sceltaGiorno
+     */
+
 
     public Citta readSave(String cityName,int sceltaGiorno) throws JSONException {
         String rotta = System.getProperty("user.dir")+ "\\src\\main\\resources\\"+ cityName + "_SalvataggioOgniOra.json";
@@ -68,6 +80,12 @@ public class ServiceStats {
         return null;
 
     }
+    /**
+     * Questo metodo restituisce un JSONObject di statistiche richiamando la classe ToJSON
+     * @param cityName
+     * @param sceltaGiorno
+     */
+
 
         public JSONObject returnObj(String cityName, int sceltaGiorno) throws Exception {
         Citta objFile = readSave(cityName,sceltaGiorno);

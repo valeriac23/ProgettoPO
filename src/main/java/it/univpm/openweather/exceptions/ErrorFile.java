@@ -1,5 +1,10 @@
 package it.univpm.openweather.exceptions;
-
+/***
+ * Questa classe fa da eccezzione quando esiste un errore nel file creando un messaggio
+ * @author Michele Costanzi
+ * @author Valeria Cannone
+ *
+ */
 public class ErrorFile extends Exception{
 
     public static String messaggio;
@@ -10,7 +15,7 @@ public class ErrorFile extends Exception{
     }
 
     public String getMessaggio(){
-        messaggio = "File non eseguitp";
+        messaggio = "File non eseguito";
         return messaggio;
     }
 }

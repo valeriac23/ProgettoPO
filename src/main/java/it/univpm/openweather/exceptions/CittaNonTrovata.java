@@ -1,4 +1,10 @@
 package it.univpm.openweather.exceptions;
+/***
+ * Questa classe fa da eccezzione quando la città non è disponibile creando un messaggio
+ * @author Michele Costanzi
+ * @author Valeria Cannone
+ *
+ */
 
 public class CittaNonTrovata extends Exception{
 

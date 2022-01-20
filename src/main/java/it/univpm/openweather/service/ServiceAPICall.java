@@ -7,12 +7,22 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+/***
+ * Questa classe chiama la API per utilizzare openweather
+ * @author Valeria Cannone
+ * @author Michle costanzi
+ */
 
 @Service
 public class ServiceAPICall {
 
     private String cityName;
     private static String api_key = "06d32b64e3cb4b1823645e35975b7053";
+
+    /**
+     * Questo metodo le informazione della città attraverso l'url e l'api_key
+     * @param cityName
+     */
 
     public JSONObject getCity(String cityName) throws JSONException,URISyntaxException {
         this.cityName = cityName;

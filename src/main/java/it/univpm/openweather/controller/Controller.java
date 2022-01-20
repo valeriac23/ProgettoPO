@@ -21,12 +21,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import java.net.URISyntaxException;
+/***
+ * Questa classe è il controller e serve per le rotte da digitare su postman
+ * @author Valeria Cannone
+ * @author Michele Costanzi
+ */
 
 @RestController
 public class Controller {
 
     @Autowired
     ServiceSpeed service;
+
+    /**
+     * Questo metodo è tipo get e serve per ottenere i dati relativi allo speed
+     * @param cityName
+     */
 
     @GetMapping(value = "/speed")
     public ResponseEntity<Object> getVisibility(@RequestParam String cityName) throws JSONException, URISyntaxException,CittaNonTrovata {
@@ -37,6 +47,11 @@ public class Controller {
     }
     @Autowired
     ServiceSalvataggio service1;
+    /***
+     * Questo metodo di tipo get serve per generare un file json con i dati relativi alla città richiesta
+     * @param cityName
+     */
+
     @GetMapping(value="/save")
     public String save(@RequestParam String cityName) throws JSONException, URISyntaxException, CittaNonTrovata {
         String file = service1.salvataggio(cityName);
@@ -44,6 +59,11 @@ public class Controller {
         return "E' stato salvato il file: " + file;
 
     }
+    /***
+     * Questo metodo get serve serve per generare e salvare ogni ora i dati della città richiesta
+     * @param cityName
+     */
+
     @GetMapping(value = "/savehour")
     public String saveEveryHour(@RequestParam String cityName) throws ErrorFile, CittaNonTrovata{
         String string = service1.salvataggioOgniOra(cityName);
@@ -51,6 +71,12 @@ public class Controller {
     }
     @Autowired
     ServiceStats service2;
+    /**
+     * Questo metodo  serve per ottenere le statistiche di una città salvando in un file json
+     * @param cityName
+     * @param sceltaGiorno
+     */
+
     @GetMapping(value = "/hour/stats")
     public ResponseEntity<Object> get(@RequestParam String cityName, @RequestParam int sceltaGiorno) throws Exception,GiornoNonDisponibile, ErrorFile, CittaNonTrovata {
         String salvataggioFile = service1.salvataggioOgniOra(cityName);
@@ -59,11 +85,16 @@ public class Controller {
 
         return new ResponseEntity<>(obj.toString(), HttpStatus.OK);
     }
+    /**
+     * Questo metodo serve per ottenere le statistiche di una città da un file json
+     * @param sceltaGiorno
+     * @param cityName
+     */
+
     @GetMapping(value = "/stats")
     public ResponseEntity<Object> get2(@RequestParam String cityName, @RequestParam int sceltaGiorno) throws Exception, CittaNonTrovata, GiornoNonDisponibile {
         Citta read = service2.readSave(cityName,sceltaGiorno);
         JSONObject obj = service2.returnObj(cityName,sceltaGiorno);
-
 
         return new ResponseEntity<>(obj.toString(), HttpStatus.OK);
     }

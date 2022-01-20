@@ -1,5 +1,10 @@
 package it.univpm.openweather.exceptions;
-
+/***
+ * Questa classe fa da eccezzione quando il giorno selezionato non è disponibile creando un messaggio
+ * @author Michele Costanzi
+ * @author Valeria Cannone
+ *
+ */
 public class GiornoNonDisponibile extends Exception {
 
     private static String messaggio;

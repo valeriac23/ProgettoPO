@@ -25,11 +25,21 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+/**
+ * Questa classe si occupa dei salvataggi dei file
+ * @author Valeria Cannone
+ * @author Michele Costanzi
+ */
 
 
 @Service
 public class ServiceSalvataggio extends ServiceAPICall {
 
+
+    /**
+     * Questo metodo prende il nome e l'id della città ricercata e li setta nel classe Citta
+     * @param cityName
+     */
 
     public Citta getCityInfo(String cityName) throws JSONException, URISyntaxException {
         JSONObject objCity = getCity(cityName);
@@ -59,6 +69,11 @@ public class ServiceSalvataggio extends ServiceAPICall {
 
         return city;
     }
+
+    /**
+     * Questo metodo prende i dati relativi alle temperature della città ricercata e li setta nella classe Citta
+     * @param cityName
+     */
 
     public Citta getCityFilter(String cityName) throws JSONException, URISyntaxException {
         JSONObject objCity = getCity(cityName);
@@ -98,6 +113,10 @@ public class ServiceSalvataggio extends ServiceAPICall {
         return city;
     }
 
+    /**
+     * Questo metodo salva i dati settati in Citta in un file json
+     * @param cityName
+     */
 
     public String salvataggio(String cityName) throws JSONException, URISyntaxException {
 
@@ -131,6 +150,11 @@ public class ServiceSalvataggio extends ServiceAPICall {
 
 
     }
+
+    /**
+     * Questo metodo salva ogni ora i dati relativi alla città ricercata in un file json
+     * @param cityName
+     */
 
     public String salvataggioOgniOra(String cityName){
         String rotta = System.getProperty("user.dir")+ "\\src\\main\\resources\\"+ cityName + "_SalvataggioOgniOra.json";
